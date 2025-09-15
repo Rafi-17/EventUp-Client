@@ -1,0 +1,50 @@
+[
+  {
+    "_id": "60d0fe4f5311236168a1005a",
+    "title": "Community Garden Cleanup",
+    "description": "Join us to clean up the local community garden! We'll be weeding, planting new flowers, and preparing the beds for the upcoming season. All skill levels are welcome.",
+    "date": "2025-09-10T09:00:00Z",
+    "location": "Central Park Community Garden",
+    "image": "https://media.istockphoto.com/id/2064307819/photo/group-of-friends-taking-care-of-community-garden.jpg?s=612x612&w=0&k=20&c=kt3ayukFt4VjEJrkcdxT4DrLCYWz2aJoqdYbNCMARyE=",
+    "organizerEmail": "organizer1@example.com",
+    "volunteers": ["user1@example.com", "user2@example.com"],
+    "status": "upcoming",
+    "volunteersAttended": []
+  },
+  {
+    "_id": "60d0fe4f5311236168a1005b",
+    "title": "Local Food Bank Drive",
+    "description": "Help us sort and pack donations for the local food bank. Your efforts will directly help families in need in our community.",
+    "date": "2025-09-15T14:00:00Z",
+    "location": "Main Street Food Bank",
+    "image": "https://foodbankcenc.org/wp-content/uploads/2023/05/Screenshot-156.png",
+    "organizerEmail": "organizer2@example.com",
+    "volunteers": ["user3@example.com"],
+    "status": "upcoming",
+    "volunteersAttended": []
+  },
+  {
+    "_id": "60d0fe4f5311236168a1005c",
+    "title": "Riverbank Restoration Project",
+    "description": "We are planting trees and clearing debris to restore the beautiful riverbank. This is a great opportunity to enjoy nature while giving back.",
+    "date": "2025-09-22T10:30:00Z",
+    "location": "North Riverbank Reserve",
+    "image": "https://www.lclt.org/wp-content/uploads/2015/06/LCLT-Restoration-Project-Protects-Water-Quality-photo-courtesy-of-Lake-Champ-650-px-wide.jpg",
+    "organizerEmail": "organizer1@example.com",
+    "volunteers": ["user1@example.com", "user4@example.com", "user5@example.com"],
+    "status": "upcoming",
+    "volunteersAttended": []
+  },
+  {
+    "_id": "60d0fe4f5311236168a1005d",
+    "title": "Senior Center Meet-and-Greet",
+    "description": "Spend an afternoon with the residents of the Golden Years Senior Center. We'll be playing board games, sharing stories, and helping with small tasks. Your presence will bring a lot of joy!",
+    "date": "2025-09-28T13:00:00Z",
+    "location": "Golden Years Senior Center",
+    "image": "https://media.istockphoto.com/id/649145088/photo/every-day-is-saturday-when-youre-retired.jpg?s=612x612&w=0&k=20&c=VjE4LImp0Wg4RHzIzHPQ8ij1EK2kwnzvjPMaIPQQoV8=",
+    "organizerEmail": "organizer3@example.com",
+    "volunteers": ["user6@example.com"],
+    "status": "upcoming",
+    "volunteersAttended": []
+  }
+]
