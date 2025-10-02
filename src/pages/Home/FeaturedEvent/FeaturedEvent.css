@@ -9,3 +9,12 @@
     background: #FF6B00 !important;
     opacity: 1 !important;
 }
+
+.dark .swiper-pagination-bullet {
+    background: rgba(255, 255, 255, 0.3) !important;
+}
+
+.dark .swiper-pagination-bullet-active {
+    background: #FF8533 !important; /* Slightly lighter orange for dark mode */
+    opacity: 1 !important;
+}

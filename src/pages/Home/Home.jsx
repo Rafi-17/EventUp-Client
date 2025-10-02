@@ -8,7 +8,7 @@ import CallToAction from './CallToAction/CallToAction';
 
 const Home = () => {
     return (
-        <div>
+        <div className='dark:bg-gray-800'>
             <Banner></Banner>
             <WhatToDo></WhatToDo>
             <FeaturedEvent></FeaturedEvent>

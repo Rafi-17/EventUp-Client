@@ -1,46 +1,32 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import useAxiosPublic from './useAxiosPublic';
+const useEvent = ({ num, status, organizerEmail = '', userEmail = '', category = '', search = '', key = false }) => {
+    const axiosPublic = useAxiosPublic();
 
-const useEvent = ({num=0, status, organizerEmail='', userEmail=''}) => {
-    const axiosPublic= useAxiosPublic();
-    // console.log(num);
-    // const url = num>0 ? `/events?limit=${num}&status=${status}` : `/events?limit=${num}&status=${status}&organizerEmail=${organizerEmail}`;
-    // const queryKey = organizerEmail ? ['events', 'organizer', organizerEmail] : ['events', status, num];
-    let url;
-    let queryKey;
-    let enabledCondition;
+    const params = new URLSearchParams();
+    if (num && num > 0) params.append('limit', num);
+    if (status) params.append('status', status);
+    if (organizerEmail) params.append('organizerEmail', organizerEmail);
+    if (userEmail) params.append('userEmail', userEmail);
+    if (category) params.append('category', category);
+    if (search) params.append('search', search);
+    if (key) params.append('key', 'true');
 
-    if(num>0) {
-        url = `/events?limit=${num}&status=${status}`;
-        queryKey=['events', status, num];
-        enabledCondition = num>0;
-    }
-    else if (organizerEmail) {
-        url = `/events?status=${status}&organizerEmail=${organizerEmail}`;
-        queryKey = ['events', 'organizer', organizerEmail];
-        enabledCondition = !!organizerEmail;
-    } 
-    else if(userEmail){
-        url=`/events?userEmail=${userEmail}`;
-        queryKey= ['events', 'user', userEmail];
-        enabledCondition = !!userEmail;
-    }
-    else{
-        url = `/events?status=${status}`;
-        queryKey = ['events', status];
-        enabledCondition = !!status;
-    }
-    const {data:events, refetch, isLoading} = useQuery({
-        // queryKey:['events', status],
-        queryKey:queryKey,
-        queryFn:async()=>{
-            const res = await axiosPublic.get(url)
+    const queryString = params.toString();
+    const url = `/events${queryString ? `?${queryString}` : ''}`;
+    
+    const queryKey = ['events', { num, status, organizerEmail, userEmail, category, search, key }];
+
+    const { data: events, refetch, isLoading } = useQuery({
+        queryKey: queryKey,
+        queryFn: async () => {
+            const res = await axiosPublic.get(url);
             return res.data;
         },
-        enabled: enabledCondition,
-    })
-    // console.log("Hook setup →", { url, queryKey, isLoading });
+        enabled: !!queryString || (!num && !status && !organizerEmail && !userEmail && !category && !search && !key),
+    });
+
     return [events, refetch, isLoading];
 };
 

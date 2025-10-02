@@ -12,7 +12,7 @@ const Footer = () => {
     ];
 
     return (
-        <footer className="bg-gray-900 text-gray-300 py-12 md:py-16">
+        <footer className="bg-gray-900 dark:bg-gray-900 dark:border-t border-gray-400 text-gray-300 py-12 md:py-16">
             <div className="container mx-auto px-4">
                 <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-8 md:gap-12">
                     {/* Brand and Mission */}
@@ -47,7 +47,7 @@ const Footer = () => {
 
                 {/* Copyright Section */}
                 <div className="border-t border-[#FF6B00] mt-8 pt-6 text-center">
-                    <p className="text-sm">&copy; {new Date().getFullYear()} EventUp. All rights reserved.</p>
+                    <p className="text-sm dark:text-gray-300">&copy; {new Date().getFullYear()} EventUp. All rights reserved.</p>
                 </div>
             </div>
         </footer>

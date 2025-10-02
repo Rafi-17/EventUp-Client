@@ -1,7 +1,6 @@
 import { AlertTriangle, Calendar, CheckCircle, Clock, Trash2, User, X } from "lucide-react";
 import NotificationIcon from "./NotificationIcon";
 import { useState } from "react";
-import DeleteConfirmationModal from "./DeleteConfirmationModal";
 
 const NotificationCard = ({ notification, onMarkAsRead, onDelete }) => {
   const [showDetails, setShowDetails] = useState(false);
@@ -34,9 +33,23 @@ const NotificationCard = ({ notification, onMarkAsRead, onDelete }) => {
   };
 
   const getNotificationContext = () => {
+    if(notification.eventTitle && notification.volunteerName){
+      return (
+        <>
+          <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mt-1">
+            <Calendar className="w-3 h-3 mr-1" />
+            <span>Event: {notification.eventTitle}</span>
+          </div>
+          <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mt-1">
+            <User className="w-3 h-3 mr-1" />
+            <span>Volunteer: {notification.volunteerName}</span>
+          </div>
+        </>
+      )
+    }
     if (notification.eventTitle) {
       return (
-        <div className="flex items-center text-xs text-gray-500 mt-1">
+        <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mt-1">
           <Calendar className="w-3 h-3 mr-1" />
           <span>Event: {notification.eventTitle}</span>
         </div>
@@ -45,7 +58,7 @@ const NotificationCard = ({ notification, onMarkAsRead, onDelete }) => {
     
     if (notification.volunteerName) {
       return (
-        <div className="flex items-center text-xs text-gray-500 mt-1">
+        <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mt-1">
           <User className="w-3 h-3 mr-1" />
           <span>Volunteer: {notification.volunteerName}</span>
         </div>
@@ -57,13 +70,13 @@ const NotificationCard = ({ notification, onMarkAsRead, onDelete }) => {
 
   return (
     <>
-    <div className={`bg-white rounded-lg border-l-4 shadow-sm hover:shadow-md transition-shadow ${
+    <div className={`bg-white dark:bg-gray-800 rounded-lg border-l-4 shadow-sm dark:shadow-md hover:shadow-md dark:hover:shadow-lg transition-shadow ${
       notification.type === 'warning' ? 'border-l-yellow-500' :
       notification.type === 'sorry' ? 'border-l-red-500' :
       notification.type === 'success' ? 'border-l-green-500' :
       notification.type === 'neutral' ? 'border-l-blue-500' :
-      'border-l-gray-500'
-    } ${!notification.read ? 'ring-2 ring-[#FF6B00] ring-opacity-20' : 'bg-gray-50'}`}>
+      'border-l-gray-500 dark:border-l-gray-400'
+    } ${!notification.read ? 'ring-2 ring-[#FF6B00] ring-opacity-20' : 'bg-gray-50 dark:bg-gray-800'}`}>
       <div className="p-4">
         <div className="flex items-start space-x-3">
           <NotificationIcon type={notification.type} />
@@ -72,7 +85,7 @@ const NotificationCard = ({ notification, onMarkAsRead, onDelete }) => {
             <div className="flex items-start justify-between">
               <div className="flex-1">
                 <div className="flex items-center space-x-2 mb-1">
-                  <p className={`text-sm ${!notification.read ? 'font-semibold text-gray-900' : 'text-gray-700'}`}>
+                  <p className={`text-sm ${!notification.read ? 'font-semibold text-gray-900 dark:text-gray-100' : 'text-gray-700 dark:text-gray-300'}`}>
                     {notification.message}
                   </p>
                   {!notification.read && (
@@ -82,7 +95,7 @@ const NotificationCard = ({ notification, onMarkAsRead, onDelete }) => {
                 
                 {getNotificationContext()}
                 
-                <div className="flex items-center text-xs text-gray-500 mt-2 flex-wrap">
+                <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mt-2 flex-wrap">
                   <div className="flex items-center">
                     <Clock className="w-3 h-3 mr-1" />
                     <span>{formatTimeAgo(notification.timestamp)}</span>
@@ -106,7 +119,7 @@ const NotificationCard = ({ notification, onMarkAsRead, onDelete }) => {
                 {!notification.read && (
                   <button
                     onClick={() => onMarkAsRead(notification._id)}
-                    className="p-1 text-gray-400 hover:text-[#FF6B00] transition-colors"
+                    className="p-1 text-gray-400 dark:text-gray-500 hover:text-[#FF6B00] transition-colors"
                     title="Mark as read"
                   >
                     <CheckCircle className="w-4 h-4" />
@@ -114,7 +127,7 @@ const NotificationCard = ({ notification, onMarkAsRead, onDelete }) => {
                 )}
                 <button
                   onClick={handleDeleteClick}
-                  className="p-1 text-gray-400 hover:text-red-500 transition-colors"
+                  className="p-1 text-gray-400 dark:text-gray-500 hover:text-red-500 transition-colors"
                   title="Delete notification"
                 >
                   <Trash2 className="w-4 h-4" />
@@ -126,14 +139,14 @@ const NotificationCard = ({ notification, onMarkAsRead, onDelete }) => {
               <>
                 <button
                   onClick={() => setShowDetails(!showDetails)}
-                  className="text-xs text-[#FF6B00] hover:text-[#E55A00] mt-2 font-medium"
+                  className="text-xs text-[#FF6B00] dark:text-[#FF8533] hover:text-[#E55A00] transition-colors mt-2 font-medium"
                 >
                   {showDetails ? 'Hide details' : 'View details'}
                 </button>
                 
                 {showDetails && (
-                  <div className="mt-3 p-3 bg-gray-50 rounded-lg border">
-                    <p className="text-sm text-gray-700 leading-relaxed">{notification.reason}</p>
+                  <div className="mt-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg border dark:border-gray-600">
+                    <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{notification.reason}</p>
                   </div>
                 )}
               </>
@@ -145,13 +158,13 @@ const NotificationCard = ({ notification, onMarkAsRead, onDelete }) => {
       {showDeleteModal && (
               <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[990] p-4">
                 <div className="flex min-h-full items-center justify-center p-4">
-        <div className="relative bg-white rounded-xl shadow-2xl max-w-md w-full mx-auto transform transition-all duration-300 ease-out">
+        <div className="relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl dark:shadow-2xl max-w-md w-full mx-auto transform transition-all duration-300 ease-out border border-gray-200 dark:border-gray-700">
           
           {/* Close Button */}
           <button
             onClick={()=>setShowDeleteModal(false)}
             disabled={isDeleting}
-            className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 transition-colors rounded-full hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="absolute top-4 right-4 p-2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-400 transition-colors rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
@@ -161,14 +174,14 @@ const NotificationCard = ({ notification, onMarkAsRead, onDelete }) => {
           <div className="p-6 sm:p-8">
             
             {/* Icon */}
-            <div className="mx-auto flex items-center justify-center w-16 h-16 rounded-full bg-red-100 mb-2 sm:mb-4">
-              <AlertTriangle className="w-8 h-8 text-red-600" />
+            <div className="mx-auto flex items-center justify-center w-16 h-16 rounded-full bg-red-100 dark:bg-red-900 mb-2 sm:mb-4">
+              <AlertTriangle className="w-8 h-8 text-red-600 dark:text-red-400" />
             </div>
 
             {/* Title */}
             <h3 
               id="modal-title"
-              className="text-xl sm:text-2xl font-bold text-gray-900 text-center mb-4"
+              className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 text-center mb-4 sm:mb-8"
             >
               Delete Notification
             </h3>
@@ -186,7 +199,7 @@ const NotificationCard = ({ notification, onMarkAsRead, onDelete }) => {
                 type="button"
                 onClick={()=>setShowDeleteModal(false)}
                 disabled={isDeleting}
-                className="flex-1 px-4 py-2 sm:py-3 text-sm sm:text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 px-4 py-2 text-sm sm:text-base font-medium text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-400 dark:hover:border-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Cancel
               </button>
@@ -196,7 +209,7 @@ const NotificationCard = ({ notification, onMarkAsRead, onDelete }) => {
                 type="button"
                 onClick={handleConfirmDelete}
                 disabled={isDeleting}
-                className="flex-1 px-4 py-2 sm:py-3 text-sm sm:text-base font-medium text-white bg-red-600 border border-transparent rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+                className="flex-1 px-4 py-2 text-sm sm:text-base font-medium text-white bg-red-600 dark:bg-red-700 border border-transparent rounded-lg hover:bg-red-700 dark:hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
               >
                 {isDeleting ? (
                   <>
@@ -213,10 +226,10 @@ const NotificationCard = ({ notification, onMarkAsRead, onDelete }) => {
             </div>
 
             {/* Warning Note */}
-            <div className="mt-3 sm:mt-6 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+            <div className="mt-3 sm:mt-6 p-3 bg-yellow-50 dark:bg-yellow-950 border border-yellow-200 dark:border-yellow-700 rounded-lg">
               <div className="flex items-start space-x-2">
-                <AlertTriangle className="w-4 h-4 text-yellow-600 mt-0.5 flex-shrink-0" />
-                <p className="text-xs sm:text-sm text-yellow-800 font-medium">
+                <AlertTriangle className="w-4 h-4 text-yellow-600 dark:text-yellow-400 mt-0.5 flex-shrink-0" />
+                <p className="text-xs sm:text-sm text-yellow-800 dark:text-yellow-200 font-medium">
                   This action is permanent and cannot be undone.
                 </p>
               </div>

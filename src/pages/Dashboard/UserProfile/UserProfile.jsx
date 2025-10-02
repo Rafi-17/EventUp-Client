@@ -10,12 +10,16 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { AlertTriangle } from "lucide-react";
+import WarningCard from "./WarningCard";
+import useTheme from "../../../hooks/useTheme";
 
 const UserProfile = () => {
   const [dbUser, isLoading, , refetch] = useUser();
   const [role, refetchRole] = useRole();
   const axiosSecure = useAxiosSecure();
   const { updateUser } = useAuth();
+  const {darkMode} = useTheme();
   
   // Image upload setup
   const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
@@ -40,7 +44,7 @@ const UserProfile = () => {
 
   //interest options
   const availableInterests = [
-    'Environment', 'Community Service', 'Education', 'Social', 
+    'Environment', 'Community', 'Education', 'Social', 
     'Health', 'Arts & Culture', 'Technology', 'Sports & Recreation', 
     'Animal Welfare', 'Disaster Relief'
   ];
@@ -54,19 +58,34 @@ const UserProfile = () => {
         await axiosSecure.patch(`/users/roleRequest/${dbUser.email}`, {
           role: 'volunteer'
         });
-        toast.success('Organizer request cancelled');
+        toast.success('Organizer request cancelled',{
+          style: {
+            background: darkMode ? '#1F2937' : 'white',
+            color: darkMode ? '#F9FAFB' : '#111827',
+          },
+        });
       } else {
         // Submit request - change role to pending-organizer
         await axiosSecure.patch(`/users/roleRequest/${dbUser.email}`, {
           role: 'pending-organizer'
         });
-        toast.success('Organizer request submitted for admin approval');
+        toast.success('Organizer request submitted for admin approval',{
+          style: {
+            background: darkMode ? '#1F2937' : 'white',
+            color: darkMode ? '#F9FAFB' : '#111827',
+          },
+        });
       }
       refetchRole(); 
       await new Promise(resolve => setTimeout(resolve, 350));
     } catch (error) {
       console.log(error);
-      toast.error('Failed to process request');
+      toast.error('Failed to process request',{
+        style: {
+          background: darkMode ? '#1F2937' : 'white',
+          color: darkMode ? '#F9FAFB' : '#111827',
+        },
+      });
     } finally {
       setRequestLoading(false);
     }
@@ -90,7 +109,12 @@ const UserProfile = () => {
             photoURL = res.data.data.display_url;
           }
         } catch (error) {
-          toast.error('Image upload failed. Please try again.', { position: 'top-right' });
+          toast.error('Image upload failed. Please try again.', { position: 'top-right',
+            style: {
+              background: darkMode ? '#1F2937' : 'white',
+              color: darkMode ? '#F9FAFB' : '#111827',
+            },
+           });
           console.error('Image upload error:', error);
           throw error; // Stop form submission if image upload fails
         }
@@ -110,7 +134,12 @@ const UserProfile = () => {
       return axiosSecure.patch(`/users/${dbUser.email}`, dataToUpdate);
     },
     onSuccess: () => {
-      toast.success("Personal information updated successfully!", { position: 'top-right' });
+      toast.success("Personal information updated successfully!", { position: 'top-right',
+        style: {
+          background: darkMode ? '#1F2937' : 'white',
+          color: darkMode ? '#F9FAFB' : '#111827',
+        },
+       });
       setIsEditingPersonal(false);
       setSelectedImage(null);
       setPreviewImage('');
@@ -118,7 +147,12 @@ const UserProfile = () => {
     },
     onError: (error) => {
       console.error("Failed to update personal info:", error);
-      toast.error("Failed to update personal information.", { position: 'top-right' });
+      toast.error("Failed to update personal information.", { position: 'top-right',
+        style: {
+          background: darkMode ? '#1F2937' : 'white',
+          color: darkMode ? '#F9FAFB' : '#111827',
+        },
+       });
     },
   });
 
@@ -128,13 +162,23 @@ const UserProfile = () => {
       return axiosSecure.patch(`/users/${dbUser.email}`, updatedData);
     },
     onSuccess: () => {
-      toast.success("Organization information updated successfully!", { position: 'top-right' });
+      toast.success("Organization information updated successfully!", { position: 'top-right',
+        style: {
+          background: darkMode ? '#1F2937' : 'white',
+          color: darkMode ? '#F9FAFB' : '#111827',
+        },
+       });
       setIsEditingOrganization(false);
       refetch();
     },
     onError: (error) => {
       console.error("Failed to update organization info:", error);
-      toast.error("Failed to update organization information.", { position: 'top-right' });
+      toast.error("Failed to update organization information.", { position: 'top-right',
+        style: {
+          background: darkMode ? '#1F2937' : 'white',
+          color: darkMode ? '#F9FAFB' : '#111827',
+        },
+       });
     },
   });
 
@@ -144,13 +188,23 @@ const { mutate: updateBio, isPending: isSavingBio } = useMutation({
     return axiosSecure.patch(`/users/${dbUser.email}`, updatedData);
   },
   onSuccess: () => {
-    toast.success("Bio and interests updated successfully!", { position: 'top-right' });
+    toast.success("Bio and interests updated successfully!", { position: 'top-right',
+      style: {
+          background: darkMode ? '#1F2937' : 'white',
+          color: darkMode ? '#F9FAFB' : '#111827',
+        },
+     });
     setIsEditingBio(false);
     refetch();
   },
   onError: (error) => {
     console.error("Failed to update bio info:", error);
-    toast.error("Failed to update bio information.", { position: 'top-right' });
+    toast.error("Failed to update bio information.", { position: 'top-right',
+      style: {
+          background: darkMode ? '#1F2937' : 'white',
+          color: darkMode ? '#F9FAFB' : '#111827',
+        },
+     });
   },
 });
 
@@ -159,7 +213,12 @@ const { mutate: updateBio, isPending: isSavingBio } = useMutation({
     const file = e.target.files[0];
     if (file) {
       if (file.size > 5 * 1024 * 1024) {
-        toast.error("Image size should be less than 5MB", { position: 'top-right' });
+        toast.error("Image size should be less than 5MB", { position: 'top-right',
+          style: {
+          background: darkMode ? '#1F2937' : 'white',
+          color: darkMode ? '#F9FAFB' : '#111827',
+        },
+         });
         return;
       }
       
@@ -283,13 +342,13 @@ const { mutate: updateBio, isPending: isSavingBio } = useMutation({
 
   if (isLoading) {
     return (
-      <div className="p-6 bg-gray-50 min-h-screen">
+      <div className="p-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
         <div className="max-w-7xl mx-auto">
           <div className="animate-pulse">
-            <div className="h-8 bg-gray-300 rounded w-1/3 mb-6"></div>
+            <div className="h-8 bg-gray-300 dark:bg-gray-700 rounded w-1/3 mb-6"></div>
             <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mb-8">
               {[1, 2, 3].map(i => (
-                <div key={i} className="w-full md:w-72 h-32 bg-gray-300 rounded-xl"></div>
+                <div key={i} className="w-full md:w-72 h-32 bg-gray-300 dark:bg-gray-700 rounded-xl"></div>
               ))}
             </div>
           </div>
@@ -299,13 +358,13 @@ const { mutate: updateBio, isPending: isSavingBio } = useMutation({
   }
 
   return (
-    <div className="p-4 lg:p-6 bg-gray-50 min-h-screen">
-      <div className="max-w-4xl mx-auto">
+    <div className="px-4 pb-4 sm:p-4 lg:p-6 xl:px-12 bg-gray-50 dark:bg-gray-900 min-h-screen">
+      <div className=" mx-auto">
         
         {/* Page Header */}
         <div className="mb-8">
-          <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">Profile Settings</h1>
-          <p className="text-gray-600 mt-1">
+          <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100">Profile Settings</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">
             Manage your account information and preferences
           </p>
         </div>
@@ -328,7 +387,8 @@ const { mutate: updateBio, isPending: isSavingBio } = useMutation({
             requestLoading={requestLoading}
             handleOrganizerRequest={handleOrganizerRequest}
           />
-
+          {/* Warning section */}
+          <WarningCard dbUser={dbUser} role={role}></WarningCard> 
           {/* Role-specific Sections */}
           {renderRoleSpecificSections()}
         </div>

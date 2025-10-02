@@ -7,7 +7,7 @@ const useAxiosSecure = () => {
     const {logoutUser} = useAuth();
     const navigate = useNavigate();
     const axiosSecure = axios.create({
-        baseURL:'http://localhost:5000'
+        baseURL:'https://event-up-server.vercel.app'
     })
     axiosSecure.interceptors.request.use((config)=>{
         const token = localStorage.getItem('access-token');

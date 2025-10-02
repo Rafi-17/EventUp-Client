@@ -5,6 +5,7 @@ import useAuth from '../../../hooks/useAuth';
 import useRole from '../../../hooks/useRole';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import toast from 'react-hot-toast';
+import useTheme from '../../../hooks/useTheme';
 
 const AddReview = () => {
   const { eventId } = useParams();
@@ -12,6 +13,7 @@ const AddReview = () => {
   const { user } = useAuth();
   const [role] = useRole();
   const axiosSecure = useAxiosSecure();
+  const {darkMode} = useTheme();
 
   // State
   const [event, setEvent] = useState(null);
@@ -32,7 +34,12 @@ const AddReview = () => {
         setEvent(response.data);
       } catch (error) {
         console.error('Error fetching event:', error);
-        toast.error('Failed to load event details');
+        toast.error('Failed to load event details',{
+          style: {
+            background: darkMode ? '#1F2937' : 'white',
+            color: darkMode ? '#F9FAFB' : '#111827',
+          },
+        });
         navigate('/dashboard/registeredEvents');
       } finally {
         setLoading(false);
@@ -43,7 +50,8 @@ const AddReview = () => {
       fetchEvent();
     }
   }, []);
-  console.log(event);
+  // console.log(event);
+  
 
   // Validation
   const validateForm = () => {
@@ -100,13 +108,22 @@ const AddReview = () => {
       if (response.data.insertedId) {
         toast.success('Review submitted successfully! It will be reviewed by admin before being published.', {
           position: 'top-right',
-          duration: 5000
+          duration: 5000,
+          style: {
+            background: darkMode ? '#1F2937' : 'white',
+            color: darkMode ? '#F9FAFB' : '#111827',
+          },
         });
         navigate('/dashboard/registeredEvents');
       }
     } catch (error) {
       console.error('Error submitting review:', error);
-      toast.error('Failed to submit review. Please try again.');
+      toast.error('Failed to submit review. Please try again.',{
+        style: {
+          background: darkMode ? '#1F2937' : 'white',
+          color: darkMode ? '#F9FAFB' : '#111827',
+        },
+      });
     } finally {
       setSubmitting(false);
     }
@@ -136,20 +153,22 @@ const AddReview = () => {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
+      hour: '2-digit', 
+      minute: '2-digit',
       timeZone: 'UTC'
     });
   };
 
   if (loading) {
     return (
-      <div className="p-4 lg:p-6 bg-gray-50 min-h-screen">
+      <div className="p-4 lg:p-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
         <div className="max-w-2xl mx-auto">
           <div className="animate-pulse space-y-6">
-            <div className="h-8 bg-gray-300 rounded w-1/3"></div>
-            <div className="bg-white rounded-xl p-6 space-y-4">
-              <div className="h-6 bg-gray-300 rounded w-3/4"></div>
-              <div className="h-4 bg-gray-300 rounded w-1/2"></div>
-              <div className="h-32 bg-gray-300 rounded"></div>
+            <div className="h-8 bg-gray-300 dark:bg-gray-600 rounded w-1/3"></div>
+            <div className="bg-white dark:bg-gray-900 rounded-xl p-6 space-y-4">
+              <div className="h-4 bg-gray-300 dark:bg-gray-600 rounded w-1/2"></div>
+              <div className="h-6 bg-gray-300 dark:bg-gray-600 rounded w-3/4"></div>
+              <div className="h-32 bg-gray-300 dark:bg-gray-600 rounded"></div>
             </div>
           </div>
         </div>
@@ -159,14 +178,14 @@ const AddReview = () => {
 
   if (!event) {
     return (
-      <div className="p-4 lg:p-6 bg-gray-50 min-h-screen">
+      <div className="p-4 lg:p-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
         <div className="max-w-2xl mx-auto text-center py-12">
-          <AlertTriangle className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">Event Not Found</h3>
-          <p className="text-gray-600 mb-6">The event you're trying to review could not be found.</p>
+          <AlertTriangle className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">Event Not Found</h3>
+          <p className="text-gray-600 dark:text-gray-400 mb-6">The event you're trying to review could not be found.</p>
           <button
             onClick={() => navigate('/dashboard/registeredEvents')}
-            className="bg-[#FF6B00] text-white px-6 py-2 rounded-lg hover:bg-[#E55A00] transition-colors"
+            className="bg-[#FF6B00] text-white px-6 py-2 rounded-lg hover:bg-[#E55A00] dark:hover:bg-[#E55A00] transition-colors"
           >
             Back to Events
           </button>
@@ -176,18 +195,18 @@ const AddReview = () => {
   }
 
   return (
-    <div className="p-4 lg:p-6 bg-gray-50 min-h-screen">
-      <div className="max-w-2xl mx-auto">
+    <div className="px-4 pb-4 sm:p-4 lg:p-6 xl:px-12 bg-gray-50 dark:bg-gray-900 min-h-screen">
+      <div className="mx-auto">
         
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">Add Review</h1>
-            <p className="text-gray-600 mt-1">Share your experience with this event</p>
+            <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-gray-100">Add Review</h1>
+            <p className="text-gray-600 dark:text-gray-400 mt-1">Share your experience with this event</p>
           </div>
           <button 
             onClick={() => navigate('/dashboard/registeredEvents')}
-            className="flex items-center space-x-2 text-gray-600 hover:text-[#FF6B00] transition-colors"
+            className="flex items-center space-x-2 text-gray-600 dark:text-gray-400 hover:text-[#FF6B00] dark:hover:text-[#FF6B00] transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
             <span>Back</span>
@@ -195,16 +214,16 @@ const AddReview = () => {
         </div>
 
         {/* Event Info Card */}
-        <div className="bg-white rounded-xl shadow-sm border mb-8">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 mb-8">
           <div className="p-6">
             <div className="flex items-center space-x-3 mb-4">
-              <h2 className="text-xl font-semibold text-gray-900">{event.title}</h2>
-              <span className="bg-[#FF6B00] bg-opacity-10 text-[#FF6B00] px-3 py-1 rounded-full text-sm font-medium">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">{event.title}</h2>
+              <span className="bg-[#FF6B00] bg-opacity-10 text-[#FF6B00] dark:bg-opacity-20 px-3 py-1 rounded-full text-sm font-medium">
                 {event.category}
               </span>
             </div>
             
-            <div className="space-y-3 text-gray-600">
+            <div className="space-y-3 text-gray-600 dark:text-gray-400">
               <div className="flex items-center space-x-3">
                 <Calendar className="w-5 h-5 text-[#FF6B00]" />
                 <span>{formatDate(event.date)}</span>
@@ -224,10 +243,10 @@ const AddReview = () => {
         </div>
 
         {/* Review Form */}
-        <div className="bg-white rounded-xl shadow-sm border">
-          <div className="p-6 border-b border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900">Your Review</h3>
-            <p className="text-gray-600 text-sm mt-1">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+          <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Your Review</h3>
+            <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
               Your review will be reviewed by admin before being published on the website
             </p>
           </div>
@@ -236,7 +255,7 @@ const AddReview = () => {
             
             {/* Rating */}
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-3">
+              <label className="block text-sm font-medium text-gray-900 dark:text-gray-100 mb-3">
                 Rate this event *
               </label>
               <div className="flex space-x-1">
@@ -246,13 +265,13 @@ const AddReview = () => {
                     type="button"
                     onClick={() => handleRatingClick(star)}
                     className={`p-1 transition-colors ${
-                      star <= review.rating ? 'text-yellow-400' : 'text-gray-300 hover:text-yellow-400'
+                      star <= review.rating ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600 hover:text-yellow-400'
                     }`}
                   >
                     <Star className="w-8 h-8 fill-current" />
                   </button>
                 ))}
-                <span className="ml-3 text-sm text-gray-600">
+                <span className="ml-3 text-sm text-gray-600 dark:text-gray-400">
                   {review.rating > 0 && (
                     <span className="font-medium">
                       {review.rating === 1 ? 'Poor' :
@@ -264,13 +283,13 @@ const AddReview = () => {
                 </span>
               </div>
               {errors.rating && (
-                <p className="mt-2 text-sm text-red-600">{errors.rating}</p>
+                <p className="mt-2 text-sm text-red-600 dark:text-red-400">{errors.rating}</p>
               )}
             </div>
 
             {/* Review Quote */}
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-2">
+              <label className="block text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">
                 Review Quote *
               </label>
               <textarea
@@ -278,8 +297,8 @@ const AddReview = () => {
                 onChange={(e) => handleInputChange('quote', e.target.value)}
                 placeholder="Write a brief, impactful quote about your experience..."
                 className={`w-full outline-none
-                     px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#FF6B00] focus:border-transparent resize-none ${
-                  errors.quote ? 'border-red-500' : 'border-gray-300'
+                  px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#FF6B00] focus:border-transparent resize-none bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 ${
+                  errors.quote ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
                 }`}
                 rows={3}
                 maxLength={300}
@@ -287,10 +306,10 @@ const AddReview = () => {
               <div className="flex justify-between items-center mt-2">
                 <div>
                   {errors.quote && (
-                    <p className="text-sm text-red-600">{errors.quote}</p>
+                    <p className="text-sm text-red-600 dark:text-red-400">{errors.quote}</p>
                   )}
                 </div>
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
                   {review.quote.length}/300 characters
                 </p>
               </div>
@@ -298,37 +317,37 @@ const AddReview = () => {
 
             {/* Event Experience */}
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-2">
+              <label className="block text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">
                 Tell us about your experience *
               </label>
               <textarea
                 value={review.eventExperience}
                 onChange={(e) => handleInputChange('eventExperience', e.target.value)}
                 placeholder="Describe your overall experience, what you liked, what could be improved..."
-                className={`w-full outline-none px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#FF6B00] focus:border-transparent resize-none ${
-                  errors.eventExperience ? 'border-red-500' : 'border-gray-300'
+                className={`w-full outline-none px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#FF6B00] focus:border-transparent resize-none bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 ${
+                  errors.eventExperience ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
                 }`}
                 rows={5}
               />
               {errors.eventExperience && (
-                <p className="mt-2 text-sm text-red-600">{errors.eventExperience}</p>
+                <p className="mt-2 text-sm text-red-600 dark:text-red-400">{errors.eventExperience}</p>
               )}
             </div>
 
             {/* Reviewer Info Display */}
-            <div className="bg-gray-50 rounded-lg p-4">
-              <h4 className="font-medium text-gray-900 mb-2">Review will be submitted as:</h4>
-              <div className="text-sm text-gray-600 space-y-1">
+            <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+              <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-2">Review will be submitted as:</h4>
+              <div className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
                 <p><span className="font-medium">Name:</span> {user.displayName || user.name}</p>
                 <p><span className="font-medium">Role:</span> {role}</p>
               </div>
             </div>
 
             {/* Disclaimer */}
-            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+            <div className="bg-yellow-50 dark:bg-yellow-950 border border-yellow-200 dark:border-yellow-900 rounded-lg p-4">
               <div className="flex items-start space-x-2">
-                <AlertTriangle className="w-5 h-5 text-yellow-600 mt-0.5 flex-shrink-0" />
-                <div className="text-sm text-yellow-800">
+                <AlertTriangle className="w-5 h-5 text-yellow-600 dark:text-yellow-400 mt-0.5 flex-shrink-0" />
+                <div className="text-sm text-yellow-800 dark:text-yellow-200">
                   <p className="font-medium mb-1">Review Guidelines:</p>
                   <ul className="list-disc list-inside space-y-1">
                     <li>Reviews are moderated and must be approved before appearing on the website</li>
@@ -344,7 +363,7 @@ const AddReview = () => {
               <button
                 type="button"
                 onClick={() => navigate('/dashboard/registeredEvents')}
-                className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+                className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
               >
                 Cancel
               </button>

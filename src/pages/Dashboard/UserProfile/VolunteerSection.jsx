@@ -1,6 +1,5 @@
 import { Award, BarChart3, Calendar, Check, Edit3, Save, X } from "lucide-react";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
-
 const VolunteerSection = ({ 
   user, 
   availableInterests,
@@ -35,7 +34,7 @@ const VolunteerSection = ({
   return (
     <>
       {/* Personal Bio & Interests */}
-      <div className="bg-white my-8 rounded-xl shadow-sm p-3 sm:p-6">
+      <div className="bg-white dark:bg-gray-800 my-8 rounded-xl shadow-sm dark:shadow-md p-3 sm:p-6 border border-gray-200 dark:border-gray-700">
         <div className="flex items-center justify-between mb-6">
           <SectionTitle 
             subHeading="About"
@@ -46,7 +45,7 @@ const VolunteerSection = ({
           {!isEditingBio ? (
             <button
               onClick={onEditBio}
-              className="flex items-center space-x-2 text-[#FF6B00] hover:text-[#E55A00] transition-colors"
+              className="flex items-center space-x-2 text-[#FF6B00] dark:text-[#FF8533] hover:text-[#E55A00] transition-colors"
             >
               <Edit3 className="w-4 h-4" />
               <span className="hidden sm:block">Edit</span>
@@ -76,7 +75,7 @@ const VolunteerSection = ({
               <button
                 onClick={onCancelBio}
                 disabled={isSavingBio}
-                className="flex items-center space-x-1 bg-gray-100 text-gray-700 px-3 py-1 rounded-lg hover:bg-gray-200 transition-colors text-sm disabled:opacity-50"
+                className="flex items-center space-x-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-100 px-3 py-1 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm disabled:opacity-50"
               >
                 <X className="w-4 h-4" />
                 <span className="hidden sm:block">Cancel</span>
@@ -88,21 +87,21 @@ const VolunteerSection = ({
         <div className="space-y-6">
           {/* Bio Section */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Bio</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Bio</label>
             {isEditingBio ? (
               <textarea
                 value={bioFormData.bio || ''}
                 onChange={(e) => setBioFormData({ ...bioFormData, bio: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF6B00] focus:border-transparent outline-none"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#FF6B00] focus:border-transparent outline-none bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
                 rows="4"
                 placeholder="Tell us about yourself, your passion for volunteering, and what motivates you to make a difference..."
               />
             ) : (
               <div>
                 {user?.bio ? (
-                  <p className="text-gray-600 leading-relaxed">{user.bio}</p>
+                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{user.bio}</p>
                 ) : (
-                  <p className="text-gray-500 italic">No bio provided yet. Click Edit to add your bio and let others know about your volunteering journey.</p>
+                  <p className="text-gray-500 dark:text-gray-400 italic">No bio provided yet. Click Edit to add your bio and let others know about your volunteering journey.</p>
                 )}
               </div>
             )}
@@ -110,7 +109,7 @@ const VolunteerSection = ({
           
           {/* Interests Section */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-3">Areas of Interest</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Areas of Interest</label>
             {isEditingBio ? (
               <div className="flex flex-wrap gap-2">
                 {availableInterests.map((interest) => {
@@ -122,7 +121,7 @@ const VolunteerSection = ({
                       className={`flex items-center space-x-1 px-3 py-2 rounded-lg text-sm transition-colors ${
                         isSelected 
                           ? 'bg-[#FF6B00] text-white' 
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-600'
                       }`}
                     >
                       {isSelected && <Check className="w-3 h-3" />}
@@ -136,13 +135,13 @@ const VolunteerSection = ({
                 {user?.interests && user.interests.length > 0 ? (
                   <div className="flex flex-wrap gap-2">
                     {user.interests.map((interest, index) => (
-                      <span key={index} className="bg-[#FF6B00] bg-opacity-10 text-[#FF6B00] px-3 py-1 rounded-full text-sm font-medium">
+                      <span key={index} className="bg-[#FF6B00] bg-opacity-10 dark:bg-opacity-20 text-[#FF6B00] px-3 py-1 rounded-full text-sm font-medium">
                         {interest}
                       </span>
                     ))}
                   </div>
                 ) : (
-                  <p className="text-gray-500 italic">No interests selected yet. Click Edit to select your areas of interest.</p>
+                  <p className="text-gray-500 dark:text-gray-400 italic">No interests selected yet. Click Edit to select your areas of interest.</p>
                 )}
               </div>
             )}
@@ -151,7 +150,7 @@ const VolunteerSection = ({
       </div>
 
       {/* Volunteer Stats */}
-      <div className="bg-white mb-8 rounded-xl shadow-sm p-3 sm:p-6">
+      <div className="bg-white dark:bg-gray-800 mb-8 rounded-xl shadow-sm dark:shadow-md p-3 sm:p-6 border border-gray-200 dark:border-gray-700">
         <SectionTitle 
             subHeading="Statistics"
             heading="Volunteer Stats"
@@ -160,26 +159,26 @@ const VolunteerSection = ({
           />
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="text-center p-4 bg-blue-100 rounded-lg">
-            <Calendar className="w-8 h-8 text-blue-600 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-gray-900">{user?.eventsParticipated || 0}</div>
-            <div className="text-sm text-gray-600">Events Participated</div>
+          <div className="text-center p-4 bg-blue-100 dark:bg-blue-900 rounded-lg">
+            <Calendar className="w-8 h-8 text-blue-600 dark:text-blue-400 mx-auto mb-2" />
+            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{user?.eventsParticipated || 0}</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Events Participated</div>
           </div>
-          <div className="text-center p-4 bg-green-100 rounded-lg">
-            <Award className="w-8 h-8 text-green-600 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-gray-900">{user?.reliabilityScore || 'N/A'}%</div>
-            <div className="text-sm text-gray-600">Reliability Score</div>
+          <div className="text-center p-4 bg-green-100 dark:bg-green-900 rounded-lg">
+            <Award className="w-8 h-8 text-green-600 dark:text-green-400 mx-auto mb-2" />
+            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{user?.reliabilityScore || 'N/A'}%</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Reliability Score</div>
           </div>
-          <div className="text-center p-4 bg-purple-100 rounded-lg">
-            <BarChart3 className="w-8 h-8 text-purple-600 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-gray-900">{user?.hoursVolunteered || 0}</div>
-            <div className="text-sm text-gray-600">Hours Volunteered</div>
+          <div className="text-center p-4 bg-purple-100 dark:bg-purple-900 rounded-lg">
+            <BarChart3 className="w-8 h-8 text-purple-600 dark:text-purple-400 mx-auto mb-2" />
+            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{user?.hoursVolunteered || 0}</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Hours Volunteered</div>
           </div>
         </div>
       </div>
 
       {/* Skills & Preferences */}
-      <div className="bg-white rounded-xl shadow-sm p-3 sm:p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-md p-3 sm:p-6 border border-gray-200 dark:border-gray-700">
         <SectionTitle 
           subHeading="Capabilities"
           heading="Skiils & Preferences"
@@ -189,22 +188,22 @@ const VolunteerSection = ({
         
         <div className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-3">Skills</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Skills</label>
             <div className="flex flex-wrap gap-2">
               {(user?.skills || ['Event Planning', 'Photography', 'First Aid']).map((skill, index) => (
-                <span key={index} className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">
+                <span key={index} className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-100 px-3 py-1 rounded-full text-sm">
                   {skill}
                 </span>
               ))}
-              <button className="bg-[#FF6B00] bg-opacity-10 text-[#FF6B00] px-3 py-1 rounded-full text-sm hover:bg-opacity-20 transition-colors">
+              <button className="bg-[#FF6B00] bg-opacity-10 dark:bg-opacity-20 text-[#FF6B00] px-3 py-1 rounded-full text-sm hover:bg-opacity-20 dark:hover:bg-opacity-30 transition-colors">
                 + Add Skill
               </button>
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Availability</label>
-            <p className="text-gray-600">{user?.availability || 'Weekends and evenings'}</p>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Availability</label>
+            <p className="text-gray-600 dark:text-gray-400">{user?.availability || 'Weekends and evenings'}</p>
           </div>
         </div>
       </div>

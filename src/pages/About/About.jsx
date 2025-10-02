@@ -29,7 +29,7 @@ const teamMembers = [
 
 const About = () => {
     return (
-        <div className="bg-gray-50">
+        <div className="bg-gray-50 dark:bg-gray-900">
             {/* Header Section */}
             {/* <section className="bg-white py-16 md:py-24">
                 <div className="container mx-auto px-4 text-center">
@@ -53,16 +53,16 @@ const About = () => {
 />
 
             {/* Mission & Vision Section */}
-            <section className="py-4 md:py-24">
+            <section className="py-4 md:py-24 bg-gray-50 dark:bg-gray-900">
                 <div className="container mx-auto px-4">
                     <div className="flex flex-col md:flex-row items-center md:items-start gap-12 md:gap-16 lg:gap-24">
                         <div className="w-full md:w-1/2 text-center md:text-left">
-                            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Our Mission</h2>
-                            <p className="text-gray-700 text-base mb-6">
+                            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-100 mb-4">Our Mission</h2>
+                            <p className="text-gray-700 dark:text-gray-300 text-base mb-6">
                                 Our mission is to connect individuals with meaningful volunteer opportunities and to simplify the process for event organizers to find the help they need. We believe that technology can be a powerful tool for social good.
                             </p>
-                            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4 mt-8">Our Vision</h2>
-                            <p className="text-gray-700 text-base">
+                            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-100 mb-4 mt-8">Our Vision</h2>
+                            <p className="text-gray-700 dark:text-gray-300 text-base">
                                 We envision a world where every community has the resources it needs to thrive, and every person has a simple way to contribute to positive change.
                             </p>
                         </div>
@@ -78,7 +78,7 @@ const About = () => {
             </section>
 
             {/* Our Team Section */}
-            <section className="bg-white py-16 md:py-24">
+            <section className="bg-white dark:bg-gray-800 py-16 md:py-24">
                 <div className="container mx-auto px-4">
                     {/* <SectionTitle
                         subHeading="OUR TEAM"
@@ -102,9 +102,9 @@ const About = () => {
                                     alt={member.name} 
                                     className="w-40 h-40 rounded-full object-cover shadow-lg mb-4"
                                 />
-                                <h4 className="text-xl font-bold text-gray-900">{member.name}</h4>
+                                <h4 className="text-xl font-bold text-gray-900 dark:text-gray-100">{member.name}</h4>
                                 <p className="text-sm font-semibold text-[#FF6B00]">{member.role}</p>
-                                <p className="text-gray-600 text-sm mt-2 max-w-xs">{member.bio}</p>
+                                <p className="text-gray-600 dark:text-gray-300 text-sm mt-2 max-w-xs">{member.bio}</p>
                             </div>
                         ))}
                     </div>
@@ -112,12 +112,12 @@ const About = () => {
             </section>
 
             {/* Contact CTA Section */}
-            <section className="bg-gray-50 py-16 md:py-24">
+            <section className="bg-gray-50 dark:bg-gray-900 py-16 md:py-24">
                 <div className="container mx-auto px-4 text-center">
-                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-6">
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-gray-100 mb-6">
                         Have a Question?
                     </h2>
-                    <p className="text-gray-700 text-base md:text-lg mb-8">
+                    <p className="text-gray-700 dark:text-gray-300 text-base md:text-lg mb-8">
                         We'd love to hear from you. Get in touch to learn more about our platform.
                     </p>
                     <Link to="/contact">

@@ -162,13 +162,13 @@ const EventForm = ({page, event}) => {
     };
 
     return (
-        <div className="max-w-6xl w-full mx-auto bg-white rounded-3xl shadow-xl p-6 md:p-12 border border-gray-100 mt-8">
+        <div className="max-w-6xl w-full mx-auto bg-white dark:bg-gray-800 rounded-md lg:rounded-3xl shadow-xl dark:shadow-2xl p-6 md:p-12 border border-gray-100 dark:border-gray-700 mt-8">
                 <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 lg:grid-cols-2 lg:gap-8">
                     {/* Left Column */}
                     <div className="lg:col-span-1">
                         {/* Event Title */}
                         <div className="mb-6">
-                            <label className="block text-gray-700 font-semibold mb-2 text-sm md:text-base" htmlFor="title">
+                            <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2 text-sm md:text-base" htmlFor="title">
                                 Event Title
                             </label>
                             <input
@@ -176,14 +176,14 @@ const EventForm = ({page, event}) => {
                                 id="title"
                                 defaultValue={event?.title}
                                 {...register('title', { required: 'Event title is required.' })}
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6B00] transition-shadow placeholder:text-xs md:placeholder:text-sm text-sm"
+                                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6B00] transition-shadow placeholder:text-xs dark:placeholder:text-gray-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 md:placeholder:text-sm text-sm"
                                 placeholder="e.g., Annual Beach Cleanup"
                             />
                             {errors.title && <p className="text-red-500 text-xs italic mt-1">{errors.title.message}</p>}
                         </div>
                         {/* Description */}
                         <div className="mb-6 lg:col-span-2">
-                            <label className="block text-gray-700 font-semibold mb-2 text-sm md:text-base" htmlFor="description">
+                            <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2 text-sm md:text-base" htmlFor="description">
                                 Description
                             </label>
                             <textarea
@@ -191,21 +191,21 @@ const EventForm = ({page, event}) => {
                                 defaultValue={event?.description}
                                 {...register('description', { required: 'Description is required.' })}
                                 rows="6"
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6B00] transition-shadow placeholder:text-xs md:placeholder:text-sm text-sm"
+                                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6B00] transition-shadow placeholder:text-xs dark:placeholder:text-gray-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 md:placeholder:text-sm text-sm"
                                 placeholder="Provide a detailed description of the event, what volunteers will do, and any other important information."
                             ></textarea>
                             {errors.description && <p className="text-red-500 text-xs italic mt-1">{errors.description.message}</p>}
                         </div>
                         {/* Category */}
                         <div className="mb-6">
-                            <label className="block text-gray-700 font-semibold mb-2 text-sm md:text-base" htmlFor="category">
+                            <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2 text-sm md:text-base" htmlFor="category">
                                 Category
                             </label>
                             <select
                                 id="category"
                                 defaultValue={event?.category || ''}
                                 {...register('category', { required: 'Category is required.' })}
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6B00] transition-shadow text-sm appearance-none bg-white cursor-pointer"
+                                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6B00] transition-shadow text-sm appearance-none bg-white dark:bg-gray-700 cursor-pointer"
                             >
                                 <option value="" disabled className="text-gray-500">
                                     Select a category
@@ -220,7 +220,7 @@ const EventForm = ({page, event}) => {
                         </div>
                         {/* Image Uploader */}
                         <div className="mb-6">
-                            <label className="block text-gray-700 font-semibold mb-2 text-sm md:text-base" htmlFor="image">
+                            <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2 text-sm md:text-base" htmlFor="image">
                                 Event Image
                             </label>
                             <input
@@ -231,9 +231,9 @@ const EventForm = ({page, event}) => {
                             />
                             <label
                                 htmlFor="image"
-                                className="w-full flex items-center justify-between cursor-pointer px-4 py-3 text-xs md:text-sm rounded-lg border border-gray-300 transition-colors bg-gray-50 hover:bg-gray-100"
+                                className="w-full flex items-center justify-between cursor-pointer px-4 py-3 text-xs md:text-sm rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 transition-colors bg-gray-50 hover:bg-gray-100"
                             >
-                                <span className={`${(watchedImageFile && watchedImageFile.length > 0) || event?.image ? 'text-black font-medium line-clamp-1' : 'text-gray-500'}`}>
+                                <span className={`${(watchedImageFile && watchedImageFile.length > 0) || event?.image ? 'text-gray-900 dark:text-gray-100 font-medium line-clamp-1' : 'text-gray-500 dark:text-gray-400'}`}>
                                     {watchedImageFile && watchedImageFile.length > 0 ? watchedImageFile[0].name : event?.image || "Upload Event Image"}
                                 </span>
                                 <span className="text-gray-500 border border-gray-400 ml-1 md:ml-0 px-3 py-1 rounded-md text-[10px] md:text-xs font-semibold">
@@ -249,7 +249,7 @@ const EventForm = ({page, event}) => {
                     <div className="lg:col-span-1">
                         {/* Location */}
                         <div className="mb-6">
-                            <label className="block text-gray-700 font-semibold mb-2 text-sm md:text-base" htmlFor="location">
+                            <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2 text-sm md:text-base" htmlFor="location">
                                 Location
                             </label>
                             <input
@@ -257,7 +257,7 @@ const EventForm = ({page, event}) => {
                                 id="location"
                                 defaultValue={event?.location}
                                 {...register('location', { required: 'Location is required.' })}
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6B00] transition-shadow placeholder:text-xs md:placeholder:text-sm text-sm"
+                                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6B00] transition-shadow placeholder:text-xs dark:placeholder:text-gray-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 md:placeholder:text-sm text-sm"
                                 placeholder="e.g., Santa Monica Pier, Los Angeles, CA"
                             />
                             {errors.location && <p className="text-red-500 text-xs italic mt-1">{errors.location.message}</p>}
@@ -266,7 +266,7 @@ const EventForm = ({page, event}) => {
 
                         {/* Required volunteer */}
                         <div className="mb-6">
-                            <label className="block text-gray-700 font-semibold mb-2 text-sm md:text-base" htmlFor="requiredVolunteers">
+                            <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2 text-sm md:text-base" htmlFor="requiredVolunteers">
                                 Required Volunteers
                             </label>
                             <input
@@ -274,7 +274,7 @@ const EventForm = ({page, event}) => {
                                 id="requiredVolunteers"
                                 defaultValue={event?.requiredVolunteers}
                                 {...register('requiredVolunteers', { required: 'Number of volunteers is required.', min: { value: 1, message: 'Must be at least 1 volunteer.' } })}
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6B00] transition-shadow placeholder:text-xs md:placeholder:text-sm text-sm"
+                                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6B00] transition-shadow placeholder:text-xs dark:placeholder:text-gray-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 md:placeholder:text-sm text-sm"
                                 placeholder="e.g., 50"
                             />
                             {errors.requiredVolunteers && <p className="text-red-500 text-xs italic mt-1">{errors.requiredVolunteers.message}</p>}
@@ -282,7 +282,7 @@ const EventForm = ({page, event}) => {
 
                         {/* Date and Time */}
                         <div className="mb-[26px]">
-                            <label className="block text-gray-700 font-semibold mb-2 text-sm md:text-base" htmlFor="date">
+                            <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2 text-sm md:text-base" htmlFor="date">
                                 Date and Time
                             </label>
                             <div className="flex space-x-4">
@@ -291,14 +291,14 @@ const EventForm = ({page, event}) => {
                                     id="date"
                                     defaultValue={event?.date ? new Date(event.date).toISOString().split('T')[0] : ''}
                                     {...register('date', { required: 'Date is required.' })}
-                                    className="w-1/2 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6B00] transition-shadow text-xs md:text-sm"
+                                    className="w-1/2 px-4 py-3 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6B00] transition-shadow text-xs md:text-sm"
                                 />
                                 <input
                                     type="time"
                                     id="time"
                                     defaultValue={event?.date ? new Date(event.date).toISOString().split('T')[1].substring(0, 5) : ''}
                                     {...register('time', { required: 'Time is required.' })}
-                                    className="w-1/2 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6B00] transition-shadow text-xs md:text-sm"
+                                    className="w-1/2 px-4 py-3 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6B00] transition-shadow text-xs md:text-sm"
                                 />
                             </div>
                             {errors.date && <p className="text-red-500 text-xs italic mt-1">{errors.date.message}</p>}
@@ -306,7 +306,7 @@ const EventForm = ({page, event}) => {
                         </div>
                         {/* Event duration */}
                         <div className="mb-7">
-                            <label className="block text-gray-700 font-semibold mb-2 text-sm md:text-base" htmlFor="duration">
+                            <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2 text-sm md:text-base" htmlFor="duration">
                                 Event Duration
                             </label>
                             <input
@@ -314,7 +314,7 @@ const EventForm = ({page, event}) => {
                                 id="duration"
                                 defaultValue={event?.duration}
                                 {...register('duration', { required: 'Duration is required.' })}
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6B00] transition-shadow placeholder:text-xs md:placeholder:text-sm text-sm"
+                                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6B00] transition-shadow placeholder:text-xs dark:placeholder:text-gray-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 md:placeholder:text-sm text-sm"
                                 placeholder="e.g., 3 hours, Half day, Full day"
                             />
                             {errors.duration && <p className="text-red-500 text-xs italic mt-1">{errors.duration.message}</p>}
@@ -322,7 +322,7 @@ const EventForm = ({page, event}) => {
 
                         {/* Secret Code */}
                         <div className="md:mb-6">
-                            <label className="block text-gray-700 font-semibold mb-2 text-sm md:text-base" htmlFor="secretCode">
+                            <label className="block text-gray-700 dark:text-gray-300 font-semibold mb-2 text-sm md:text-base" htmlFor="secretCode">
                                 Secret Code
                             </label>
                             <div className="flex flex-col md:flex-row gap-2 md:gap-0 items-start md:items-center space-x-2">
@@ -331,7 +331,7 @@ const EventForm = ({page, event}) => {
                                     id="secretCode"
                                     defaultValue={event?.secretCode}
                                     {...register('secretCode', { required: 'Secret code is required.' })}
-                                    className="w-full flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6B00] transition-shadow placeholder:text-xs md:placeholder:text-sm text-sm"
+                                    className="w-full flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6B00] transition-shadow placeholder:text-xs dark:placeholder:text-gray-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 md:placeholder:text-sm text-sm"
                                     readOnly
                                     placeholder="Click 'Generate' to create a unique code"
                                 />
@@ -342,7 +342,7 @@ const EventForm = ({page, event}) => {
                                         const generatedCode = generateCode();
                                         setValue('secretCode', generatedCode);
                                     }}
-                                    className="bg-gray-200 text-gray-700 px-4 py-3 rounded-lg font-bold hover:bg-gray-300 transition-colors text-xs md:text-sm"
+                                    className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-100 px-4 py-3 rounded-lg font-bold hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-xs md:text-sm"
                                 >
                                     Generate
                                 </button>
@@ -365,7 +365,7 @@ const EventForm = ({page, event}) => {
                         <button
                             type="submit"
                             disabled={addEventMutation.isPending || isFetching || (!event && watchedSecretCode && codeAvailability && !codeAvailability.isAvailable)}
-                            className="w-full bg-[#FF6B00] text-white font-bold py-2 md:py-3 px-4 md:px-8 rounded-full shadow-lg hover:bg-[#E66200] transition-colors duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed text-base md:text-lg"
+                            className="w-full bg-[#FF6B00] text-white font-bold py-2 md:py-3 px-4 md:px-8 rounded-full shadow-lg hover:bg-[#E66200] transition-colors duration-300 disabled:bg-gray-400 dark:disabled:bg-gray-600 disabled:cursor-not-allowed text-base md:text-lg"
                         >
                             {
                                 page==='add' ?

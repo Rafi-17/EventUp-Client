@@ -22,7 +22,7 @@ const RegisterEventCard = ({ event, onAction }) => {
     : 0;
 
   return (
-    <div className={`bg-white rounded-xl shadow-sm border hover:shadow-md transition-shadow ${
+    <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-md border border-gray-200 dark:border-gray-700 hover:shadow-md dark:hover:shadow-lg transition-shadow ${
       event.status === 'cancelled' ? 'opacity-60' : ''
     }`}>
       <div className={`p-6 ${event?.status === 'cancelled' ? '' : 'flex flex-col h-full'} `}>
@@ -31,51 +31,52 @@ const RegisterEventCard = ({ event, onAction }) => {
           <div className="flex-1">
             <div className="flex items-center space-x-3 mb-2">
               <h3 className={`text-lg font-semibold ${
-                event.status === 'cancelled' ? 'text-gray-500' : 'text-gray-900'
+                event.status === 'cancelled' ? 'text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-gray-100'
               }`}>
                 {event.title}
               </h3>
-              <span className="bg-[#FF6B00] bg-opacity-10 text-[#FF6B00] px-2 py-1 rounded-full text-xs font-medium">
+              <span className="bg-[#FF6B00] bg-opacity-10 text-[#FF6B00] dark:bg-opacity-20 px-2 py-1 rounded-full text-xs font-medium">
                 {event.category}
               </span>
             </div>
             <div className="flex items-center space-x-3">
               <EventStatusBadge status={event.status} />
               <CountdownTimer eventDate={event.date} />
+              {event?.status==='ongoing' && <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse ml-1"></span>}
             </div>
           </div>
         </div>
 
         {/* Event Details */}
         <div className="space-y-3 mb-4 flex-grow">
-          <div className="flex items-center space-x-3 text-gray-600">
+          <div className="flex items-center space-x-3 text-gray-600 dark:text-gray-400">
             <Calendar className="w-5 h-5 text-[#FF6B00] flex-shrink-0" />
             <div>
-              <div className="font-medium text-gray-900">{formattedDate}</div>
-              <div className="text-sm">{formattedTime}</div>
+              <div className="font-medium text-gray-900 dark:text-gray-100">{formattedDate}</div>
+              <div className="text-sm dark:text-gray-300">{formattedTime}</div>
             </div>
           </div>
           
-          <div className="flex items-center space-x-3 text-gray-600">
+          <div className="flex items-center space-x-3 text-gray-600 dark:text-gray-400">
             <MapPin className="w-5 h-5 text-[#FF6B00] flex-shrink-0" />
             <span className="text-sm">{event.location}</span>
           </div>
           
-          <div className="flex items-center space-x-3 text-gray-600">
+          <div className="flex items-center space-x-3 text-gray-600 dark:text-gray-400">
             <User className="w-5 h-5 text-[#FF6B00] flex-shrink-0" />
-            <span className="text-sm">Organized by {event.organizerName}</span>
+            <span className="text-sm">Organized by {event.organizerName || 'Unknown'}</span>
           </div>
         </div>
 
         {/* Volunteer Progress */}
         <div className="mb-4 ">
           <div className="flex items-center justify-between text-sm mb-2">
-            <span className="text-gray-600">Volunteer Progress</span>
-            <span className="font-medium text-gray-900">
+            <span className="text-gray-600 dark:text-gray-400">Volunteer Progress</span>
+            <span className="font-medium text-gray-900 dark:text-gray-100">
               {event.volunteers.length}/{event.requiredVolunteers} registered
             </span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
+          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
             <div 
               className="bg-[#FF6B00] h-2 rounded-full transition-all duration-300"
               style={{ width: `${Math.min(volunteerProgress, 100)}%` }}
@@ -84,7 +85,7 @@ const RegisterEventCard = ({ event, onAction }) => {
         </div>
 
         {/* Action Buttons */}
-        <div className="border-t border-gray-200 pt-4">
+        <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
           
           <EventActionButtons event={event} onAction={onAction} />
         </div>

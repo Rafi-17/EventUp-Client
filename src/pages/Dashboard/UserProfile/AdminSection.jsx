@@ -40,7 +40,7 @@ const AdminSection = ({ user }) => {
   return (
     <>
       {/* Admin Status */}
-      <div className="bg-white rounded-xl shadow-sm p-3 sm:p-6 mb-8">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-md p-3 sm:p-6 mb-8 border border-gray-200 dark:border-gray-700">
         <SectionTitle 
           subHeading="Access Level"
           heading="Administrator Privileges"
@@ -49,12 +49,12 @@ const AdminSection = ({ user }) => {
         />
         
         <div className="flex items-center space-x-3">
-          <div className="bg-red-100 p-3 rounded-full">
-            <Shield className="w-6 h-6 text-red-600" />
+          <div className="bg-red-100 dark:bg-red-900 p-3 rounded-full">
+            <Shield className="w-6 h-6 text-red-600 dark:text-red-400" />
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900">System Administrator</h3>
-            <p className="text-gray-600 text-sm">Full access to all platform features and user management</p>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100">System Administrator</h3>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">Full access to all platform features and user management</p>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@ const AdminSection = ({ user }) => {
       <SystemAccessSummary user={user}/>
 
       {/* Activity Log */}
-      <div className="bg-white rounded-xl shadow-sm p-3 sm:p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-md p-3 sm:p-6 border border-gray-200 dark:border-gray-700">
         <SectionTitle 
           subHeading="Recent Actions"
           heading="Activity Log"
@@ -72,7 +72,7 @@ const AdminSection = ({ user }) => {
         />
         {
           isLoading ?
-          <div className="bg-white rounded-xl shadow-sm p-6 mb-8 flex items-center justify-center min-h-[150px]">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 mb-8 flex items-center justify-center min-h-[150px]">
             <div className="flex flex-col items-center">
               <svg
                 className="animate-spin h-8 w-8 text-[#FF6B00]"
@@ -91,26 +91,25 @@ const AdminSection = ({ user }) => {
                 <path
                   className="opacity-75"
                   fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                ></path>
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
             </div>
           </div> :
         <div className="space-y-4">
           {activityLog.length > 0 ? (
             activityLog.map((activity) => (
-              <div key={activity._id} className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+              <div key={activity._id} className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
                 <Activity className="w-5 h-5 text-[#FF6B00]" />
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-gray-900">{activity.action}</p>
-                  <p className="text-xs text-gray-600">
+                  <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{activity.action}</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
                     {getTargetName(activity)} • {new Date(activity.timestamp).toLocaleString()}
                   </p>
                 </div>
               </div>
             ))
           ) : (
-            <p className="text-center text-gray-500">No recent activity.</p>
+            <p className="text-center text-gray-500 dark:text-gray-400">No recent activity.</p>
           )}
         </div>
         }

@@ -49,7 +49,7 @@ const OrganizerSection = ({ user, isEditing, onEdit, onSave, onCancel, formData,
     <div className="mt-8">
       {/* Organization Info */}
       {isSaving ?
-        <div className="bg-white rounded-xl shadow-sm p-6 mb-8 flex items-center justify-center min-h-[150px]">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-md p-6 mb-8 flex items-center justify-center min-h-[150px]">
       <div className="flex flex-col items-center">
         <svg
           className="animate-spin h-8 w-8 text-[#FF6B00]"
@@ -71,10 +71,10 @@ const OrganizerSection = ({ user, isEditing, onEdit, onSave, onCancel, formData,
             d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
           ></path>
         </svg>
-        <p className="mt-4 text-gray-600 font-medium">Saving...</p>
+        <p className="mt-4 text-gray-600 dark:text-gray-300 font-medium">Saving...</p>
       </div>
     </div> :
-      <div className="bg-white rounded-xl shadow-sm p-3 sm:p-6 mb-8">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-md p-3 sm:p-6 mb-8 border border-gray-200 dark:border-gray-700">
         <div className="flex items-center justify-between mb-6">
           <SectionTitle
             subHeading="Organization"
@@ -87,7 +87,7 @@ const OrganizerSection = ({ user, isEditing, onEdit, onSave, onCancel, formData,
           {!isEditing && !showEditOptions && hasOrganizationInfo && (
             <button
               onClick={handleShowEditOptions}
-              className="flex items-center space-x-2 text-[#FF6B00] hover:text-[#E55A00] transition-colors"
+              className="flex items-center space-x-2 text-[#FF6B00] dark:text-[#FF8533] hover:text-[#E55A00] transition-colors"
             >
               <Edit3 className="w-4 h-4" />
               <span className="hidden sm:block">Edit</span>
@@ -130,7 +130,7 @@ const OrganizerSection = ({ user, isEditing, onEdit, onSave, onCancel, formData,
               <button
                 onClick={onCancel}
                 disabled={isSaving}
-                className="flex items-center space-x-1 bg-gray-100 text-gray-700 px-3 py-1 rounded-lg hover:bg-gray-200 transition-colors text-sm disabled:opacity-50"
+                className="flex items-center space-x-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-100 px-3 py-1 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm disabled:opacity-50"
               >
                 <X className="w-4 h-4" />
                 <span className="hidden sm:block">Cancel</span>
@@ -141,7 +141,7 @@ const OrganizerSection = ({ user, isEditing, onEdit, onSave, onCancel, formData,
           {showEditOptions && (
             <button
               onClick={handleCancelEditOptions}
-              className="flex items-center space-x-1 bg-gray-100 text-gray-700 px-3 py-1 rounded-lg hover:bg-gray-200 transition-colors text-sm"
+              className="flex items-center space-x-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-100 px-3 py-1 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors text-sm"
             >
               <X className="w-4 h-4" />
               <span className="hidden sm:block">Cancel</span>
@@ -153,21 +153,21 @@ const OrganizerSection = ({ user, isEditing, onEdit, onSave, onCancel, formData,
           // Editing Form
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Organization Name</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Organization Name</label>
               <input
                 type="text"
                 value={formData.organizationName || ''}
                 onChange={(e) => setFormData({ ...formData, organizationName: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF6B00] focus:border-transparent outline-none"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#FF6B00] focus:border-transparent outline-none bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                 placeholder="Enter organization name"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Description</label>
               <textarea
                 value={formData.organizationDescription || ''}
                 onChange={(e) => setFormData({ ...formData, organizationDescription: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF6B00] focus:border-transparent outline-none"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#FF6B00] focus:border-transparent outline-none bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                 rows="4"
                 placeholder="Describe your organization's mission and purpose"
               />
@@ -175,12 +175,12 @@ const OrganizerSection = ({ user, isEditing, onEdit, onSave, onCancel, formData,
           </div>
         ) : showEditOptions ? (
           // Options to edit or become a solo organizer
-          <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
-            <p className="text-gray-700 text-center sm:text-left mb-4">What would you like to do?</p>
+          <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+            <p className="text-gray-700 dark:text-gray-300 text-center sm:text-left mb-4">What would you like to do?</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <button
                 onClick={handleSoloOrganizerClick}
-                className="flex items-center justify-center space-x-2 bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400 transition-colors text-sm"
+                className="flex items-center justify-center space-x-2 bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-gray-100 px-4 py-2 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors text-sm"
               >
                 <Users className="w-4 h-4" />
                 <span>I am a solo organizer</span>
@@ -198,36 +198,36 @@ const OrganizerSection = ({ user, isEditing, onEdit, onSave, onCancel, formData,
           // Displaying Organization Info
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Organization Name</label>
-              <p className="text-gray-900 font-medium">{user?.organizationName}</p>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Organization Name</label>
+              <p className="text-gray-900 dark:text-gray-100 font-medium">{user?.organizationName}</p>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
-              <p className="text-gray-600 leading-relaxed">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Description</label>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                 {user?.organizationDescription || 'No description provided'}
               </p>
             </div>
           </div>
         ) : isSoloOrganizer ? (
           // Displaying Solo Organizer Status
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
+          <div className="bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-700 rounded-lg p-4 text-center">
             <div className="flex items-center justify-center mb-2">
-              <Users className="w-5 h-5 text-blue-600 mr-2" />
-              <p className="font-medium text-blue-800">Solo Organizer</p>
+              <Users className="w-5 h-5 text-blue-600 dark:text-blue-400 mr-2" />
+              <p className="font-medium text-blue-800 dark:text-blue-300">Solo Organizer</p>
             </div>
-            <p className="text-blue-700 text-sm">
+            <p className="text-blue-700 dark:text-blue-200 text-sm">
               You are currently registered as a solo organizer. You can add organization details anytime.
             </p>
           </div>
         ) : (
           // Initial State - No organization info
-          <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
-            <Briefcase className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            <p className="text-gray-700 mb-4">No organization information provided yet.</p>
+          <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-6 text-center">
+            <Briefcase className="w-12 h-12 text-gray-400 dark:text-gray-500 mx-auto mb-4" />
+            <p className="text-gray-700 dark:text-gray-300 mb-4">No organization information provided yet.</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <button
                 onClick={handleSoloOrganizerClick}
-                className="flex items-center justify-center space-x-2 bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400 transition-colors text-sm"
+                className="flex items-center justify-center space-x-2 bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-gray-100 px-4 py-2 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors text-sm"
               >
                 <Users className="w-4 h-4" />
                 <span>I am a solo organizer</span>
@@ -247,21 +247,21 @@ const OrganizerSection = ({ user, isEditing, onEdit, onSave, onCancel, formData,
       {/* Confirmation Modal for Solo Organizer */}
       {showConfirmModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[990] p-4">
-          <div className="relative p-6 bg-white rounded-xl shadow-xl w-11/12 md:w-1/3 max-w-md mx-auto">
+          <div className="relative p-6 bg-white dark:bg-gray-800 rounded-xl shadow-xl dark:shadow-2xl w-11/12 md:w-1/3 max-w-md mx-auto border border-gray-200 dark:border-gray-700">
             <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="w-6 h-6 text-blue-600" />
+              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />
               </div>
-              <h3 className="text-base sm:text-lg leading-6 font-medium text-gray-900 mb-2">
+              <h3 className="text-base sm:text-lg leading-6 font-medium text-gray-900 dark:text-gray-100 mb-2">
                 Confirm Solo Organizer Status
               </h3>
-              <p className="text-xs text-justify sm:text-\ sm:text-sm text-gray-500 mb-6">
+              <p className="text-xs text-justify sm:text-sm text-gray-500 dark:text-gray-400 mb-6">
                 Are you sure you want to proceed as a solo organizer? This will remove any existing organization information.
               </p>
               <div className="flex justify-center space-x-4">
                 <button
                   onClick={() => setShowConfirmModal(false)}
-                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+                  className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
                 >
                   Cancel
                 </button>
@@ -278,7 +278,7 @@ const OrganizerSection = ({ user, isEditing, onEdit, onSave, onCancel, formData,
       )}
 
       {/* Event Metrics */}
-      <div className="bg-white rounded-xl shadow-sm p-3 sm:p-6 mb-8">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-md p-3 sm:p-6 mb-8 border border-gray-200 dark:border-gray-700">
         <SectionTitle 
           subHeading="Performance"
           heading="Event Metrics"
@@ -287,26 +287,26 @@ const OrganizerSection = ({ user, isEditing, onEdit, onSave, onCancel, formData,
         />
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="text-center p-4 bg-[#FF6B00] bg-opacity-10 rounded-lg">
+          <div className="text-center p-4 bg-[#FF6B00] bg-opacity-10 dark:bg-opacity-20 rounded-lg">
             <Calendar className="w-8 h-8 text-[#FF6B00] mx-auto mb-2" />
-            <div className="text-2xl font-bold text-gray-900">{user?.totalEvents || 0}</div>
-            <div className="text-sm text-gray-600">Total Events</div>
+            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{user?.totalEvents || 0}</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Total Events</div>
           </div>
-          <div className="text-center p-4 bg-green-100 rounded-lg">
-            <Users className="w-8 h-8 text-green-600 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-gray-900">{user?.totalVolunteers || 0}</div>
-            <div className="text-sm text-gray-600">Volunteers Managed</div>
+          <div className="text-center p-4 bg-green-100 dark:bg-green-900 rounded-lg">
+            <Users className="w-8 h-8 text-green-600 dark:text-green-400 mx-auto mb-2" />
+            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{user?.totalVolunteers || 0}</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Volunteers Managed</div>
           </div>
-          <div className="text-center p-4 bg-yellow-100 rounded-lg">
-            <Star className="w-8 h-8 text-yellow-600 mx-auto mb-2" />
-            <div className="text-2xl font-bold text-gray-900">{user?.averageRating || 'N/A'}</div>
-            <div className="text-sm text-gray-600">Average Rating</div>
+          <div className="text-center p-4 bg-yellow-100 dark:bg-yellow-900 rounded-lg">
+            <Star className="w-8 h-8 text-yellow-600 dark:text-yellow-400 mx-auto mb-2" />
+            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{user?.averageRating || 'N/A'}</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Average Rating</div>
           </div>
         </div>
       </div>
 
       {/* Notification Settings */}
-      <div className="bg-white rounded-xl shadow-sm p-3 sm:p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-md p-3 sm:p-6 border border-gray-200 dark:border-gray-700">
         <SectionTitle 
           subHeading="Communication"
           heading="Notification Preferences"
@@ -316,14 +316,14 @@ const OrganizerSection = ({ user, isEditing, onEdit, onSave, onCancel, formData,
         
         <div className="space-y-4">
           {Object.entries(notificationPrefs).map(([key, value]) => (
-            <div key={key} className="flex items-start sm:items-center justify-between py-3 border-b border-gray-100 last:border-b-0">
+            <div key={key} className="flex items-start sm:items-center justify-between py-3 border-b border-gray-100 dark:border-gray-700 last:border-b-0">
               <div className="flex-1 min-w-0 mr-4">
-                <p className="font-medium text-gray-900 mb-1">
+                <p className="font-medium text-gray-900 dark:text-gray-100 mb-1">
                   {key === 'newVolunteers' && 'New Volunteer Registrations'}
                   {key === 'eventReminders' && 'Event Reminders'}
                   {key === 'platformUpdates' && 'Platform Updates'}
                 </p>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
                   {key === 'newVolunteers' && 'Get notified when volunteers register for your events'}
                   {key === 'eventReminders' && 'Receive reminders about upcoming events'}
                   {key === 'platformUpdates' && 'Stay updated with new features and announcements'}
@@ -336,7 +336,7 @@ const OrganizerSection = ({ user, isEditing, onEdit, onSave, onCancel, formData,
                   onChange={(e) => setNotificationPrefs({ ...notificationPrefs, [key]: e.target.checked })}
                   className="sr-only peer"
                 />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#FF6B00] peer-focus:ring-opacity-25 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#FF6B00]"></div>
+                <div className="w-11 h-6 bg-gray-200 dark:bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#FF6B00] peer-focus:ring-opacity-25 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#FF6B00]"></div>
               </label>
             </div>
           ))}

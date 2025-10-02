@@ -5,6 +5,14 @@
 .poppins{
   font-family: "Poppins", sans-serif;
 }
+.dark input:-webkit-autofill,
+.dark input:-webkit-autofill:hover, 
+.dark input:-webkit-autofill:focus, 
+.dark input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #374151 inset !important; /* Tailwind's gray-800 */
+    -webkit-text-fill-color: #F9FAFB !important; /* Tailwind's gray-100 */
+    caret-color: #F9FAFB !important; /* For the cursor */
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

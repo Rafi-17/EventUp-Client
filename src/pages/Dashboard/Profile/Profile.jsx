@@ -10,8 +10,8 @@ import { CgProfile } from 'react-icons/cg';
 const UserProfile = () => {
     const { user } = useAuth();
     const [role, refetch] = useRole();
-    console.log(role);
-    console.log(user);
+    // console.log(role);
+    // console.log(user);
     const axiosSecure = useAxiosSecure();
     
     const handleSentRequest = () =>{

@@ -4,12 +4,16 @@ import useAuth from '../../hooks/useAuth';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import toast from 'react-hot-toast';
 import auth from '../../firebase/firebase.config';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import useTheme from '../../hooks/useTheme';
 
 const SocialLogin = () => {
     const {googleUser, updateUser, setUser, user} = useAuth();
     const axiosPublic = useAxiosPublic();
+    const {darkMode} = useTheme();
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location?.state || '/';
     const handleGoogleSignIn = () => {
         googleUser()
         .then(async(res)=>{
@@ -19,10 +23,11 @@ const SocialLogin = () => {
                 // await res.user.reload();
                 // await setUser(res.user);
                 // console.log('after set user in social', user);
+                await auth.currentUser.reload();
                 const userDBinfo = {
                     name: res?.user?.displayName,
                     email: res?.user?.email,
-                    photoURL: res?.user?.photoURL, // The URL from ImgBB
+                    photoURL: '', // The URL from ImgBB
                     role: 'volunteer',
                     warnings: 0,
                     suspensionEndDate: null,
@@ -31,15 +36,28 @@ const SocialLogin = () => {
                 // console.log(res.user);
                 axiosPublic.post('/users',userDBinfo)
                 .then(res=>{
-                    console.log(res.data);
+                    // console.log(res.data);
                 })
                 toast.success(
                     <div>
                         <h2 className='font-bold'>Logged in successfully!</h2>
-                    </div>
+                    </div>,{
+                        style: {
+                        background: darkMode ? '#1F2937' : 'white',
+                        color: darkMode ? '#F9FAFB' : '#111827',
+                        },
+                    }
                 )
-                navigate('/')
+                navigate(from)
             // })
+        })
+        .catch(error=>{
+            toast.error(error.message,{
+                style: {
+            background: darkMode ? '#1F2937' : 'white',
+            color: darkMode ? '#F9FAFB' : '#111827',
+            },
+            });
         })
     };
 

@@ -18,7 +18,7 @@ const Testimonial = () => {
     }, []);
 
     return (
-        <section className="bg-gray-50 py-16 md:py-24">
+        <section className="bg-gray-50 dark:bg-gray-800 py-16 md:py-24">
             <div className="container mx-auto px-4">
                 {/* <SectionTitle 
                     subHeading="WHAT OUR COMMUNITY SAYS" 

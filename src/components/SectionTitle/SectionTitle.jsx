@@ -15,25 +15,25 @@ const SectionTitle = ({
         default: {
             container: 'my-8',
             subHeading: 'text-[#FF6B00] mb-2 uppercase text-base md:text-lg italic font-semibold',
-            heading: 'text-3xl md:text-4xl font-extrabold uppercase text-gray-900 leading-tight',
-            line: 'w-[40%] lg:w-[28%] h-0.5 mx-auto bg-[#FF6B00] mb-4'
+            heading: 'text-3xl md:text-4xl font-extrabold uppercase text-gray-900 dark:text-gray-100 leading-tight',
+            line: 'w-[40%] lg:w-[28%] h-0.5 bg-[#FF6B00] mb-4'
         },
         dashboard: {
             container: 'my-6',
-            subHeading: 'text-[#FF6B00] mb-1 uppercase text-xs md:text-base font-medium tracking-wide',
-            heading: 'text-xl md:text-3xl font-bold text-gray-900 leading-tight',
+            subHeading: 'text-[#FF6B00] mb-1 uppercase text-sm md:text-base font-medium tracking-wide',
+            heading: 'text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 leading-tight',
             line: 'w-28 h-0.5 bg-[#FF6B00] mb-3'
         },
         minimal: {
             container: 'my-4',
             subHeading: 'text-[#FF6B00] mb-1 text-base font-medium uppercase tracking-wider',
-            heading: 'text-xl md:text-3xl font-bold text-gray-900',
+            heading: 'text-xl md:text-3xl font-bold text-gray-900 dark:text-gray-100',
             line: 'w-20 h-0.5 bg-[#FF6B00] mb-2'
         },
         hero: {
             container: 'my-12',
             subHeading: 'text-[#FF6B00] mb-3 uppercase text-lg md:text-xl italic font-semibold tracking-wide',
-            heading: 'text-4xl md:text-6xl font-extrabold uppercase text-gray-900 leading-tight',
+            heading: 'text-4xl md:text-6xl font-extrabold uppercase text-gray-900 dark:text-gray-100 leading-tight',
             line: 'w-24 h-1 mx-auto bg-gradient-to-r from-[#FF6B00] to-[#FF8533] mb-6'
         }
     };
@@ -65,7 +65,7 @@ const SectionTitle = ({
             </h2>
 
             {description && (
-                <p className="text-gray-600 mt-1 text-base max-w-2xl mx-auto">
+                <p className="text-gray-600 dark:text-gray-300 mt-1 text-base max-w-2xl mx-auto">
                     {description}
                 </p>
             )}

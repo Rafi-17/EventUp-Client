@@ -45,7 +45,7 @@ const MainLayout = () => {
     // }, [location.pathname, refetch]);
     
     return (
-        <div className='bitter'>
+        <div className='bitter dark:bg-gray-900'>
             {!noNavbarFooter && <Navbar></Navbar> }
             <Outlet></Outlet>
             {!noNavbarFooter && <Footer></Footer> }

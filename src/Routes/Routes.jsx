@@ -19,10 +19,16 @@ import RegisteredEvents from "../pages/Dashboard/RegisteredEvents/RegisteredEven
 import UserProfile from "../pages/Dashboard/UserProfile/UserProfile";
 import Notifications from "../pages/Dashboard/Notifications/Notifications";
 import AddReview from "../pages/Dashboard/AddReview/AddReview";
+import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
+import AdminRoute from "./AdminRoute";
+import OrganizerRoute from "./OrganizerRoute";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import Reviews from "../pages/Dashboard/Reviews/Reviews";
 export const router = createBrowserRouter([
     {
         path:'/',
         element: <MainLayout></MainLayout>,
+        errorElement:<ErrorPage></ErrorPage>,
         children:[
             {
                 path:'/',
@@ -35,7 +41,7 @@ export const router = createBrowserRouter([
             {
                 path: '/eventDetails/:eventId',
                 element: <EventDetails></EventDetails>,
-                loader:({params})=> fetch(`http://localhost:5000/comments/count/${params.eventId}`)
+                loader:({params})=> fetch(`https://event-up-server.vercel.app/comments/count/${params.eventId}`)
             },
             {
                 path: '/about',
@@ -58,22 +64,23 @@ export const router = createBrowserRouter([
     {
         path:'/dashboard',
         element:<PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+        errorElement:<ErrorPage></ErrorPage>,
         children:[
             {
-                path:'tempProfile',
-                element:<Profile></Profile>
+                path:'/dashboard/',
+                element:<DashboardHome></DashboardHome>
             },
             {
                 path:'allUsers',
-                element:<AllUsers></AllUsers>
+                element:<AdminRoute><AllUsers></AllUsers></AdminRoute>
             },
             {
                 path:'manageEvents',
-                element:<ManageEvents></ManageEvents>
+                element:<OrganizerRoute><ManageEvents></ManageEvents></OrganizerRoute>
             },
             {
                 path:'manageVolunteers/:eventId?',
-                element:<ManageVolunteers></ManageVolunteers>
+                element:<OrganizerRoute><ManageVolunteers></ManageVolunteers></OrganizerRoute>
             },
             {
                 path:'registeredEvents',
@@ -81,12 +88,12 @@ export const router = createBrowserRouter([
             },
             {
                 path:'addEvent',
-                element:<AddEvent></AddEvent>
+                element:<OrganizerRoute><AddEvent></AddEvent></OrganizerRoute>
             },
             {
                 path:'updateEvent/:eventId',
-                element:<PrivateRoute><UpdateEvent></UpdateEvent></PrivateRoute>,
-                loader:({params})=> fetch(`http://localhost:5000/events/${params.eventId}`)
+                element:<OrganizerRoute><UpdateEvent></UpdateEvent></OrganizerRoute>,
+                loader:({params})=> fetch(`https://event-up-server.vercel.app/events/${params.eventId}`)
             },
             {
                 path:'profile',
@@ -99,6 +106,10 @@ export const router = createBrowserRouter([
             {
                 path:'addReview/:eventId',
                 element: <AddReview></AddReview>
+            },
+            {
+                path:'reviews/:eventId',
+                element:<OrganizerRoute><Reviews></Reviews></OrganizerRoute>
             }
         ]
     },

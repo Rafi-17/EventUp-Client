@@ -24,7 +24,7 @@ const FeaturedEvent = () => {
     // },[])
 
     return (
-        <div className='py-20'>
+        <div className='py-10 bg-white dark:bg-gray-900'>
             <div className="container mx-auto px-4">
                 {/* <SectionTitle heading={'Upcoming Events'} subHeading={'MAKE A DIFFERENCE'}></SectionTitle> */}
                 <SectionTitle 

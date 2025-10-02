@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getRedirectResult, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, signOut, updateProfile } from 'firebase/auth';
 import React, { createContext, useEffect, useState } from 'react';
 import auth from '../firebase/firebase.config';
 import useAxiosPublic from '../hooks/useAxiosPublic';
@@ -22,8 +22,8 @@ const AuthProvider = ({children}) => {
 
     const googleUser = ()=>{
         setLoading(true);
-        return signInWithPopup(auth,googleProvider);
-    }
+        return signInWithPopup(auth, googleProvider);
+    }    
 
     const logoutUser = ()=>{
         setLoading(true);
@@ -38,7 +38,7 @@ const AuthProvider = ({children}) => {
     useEffect(()=>{
         const unSubscribe = onAuthStateChanged(auth, currentUser=>{
             setUser(currentUser);
-            console.log(currentUser);
+            // console.log(currentUser);
             if(currentUser){
                 const userInfo = {email:currentUser?.email}
                 axiosPublic.post('/jwt', userInfo)

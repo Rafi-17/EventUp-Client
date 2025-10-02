@@ -7,11 +7,13 @@ import FilterNotificationTabs from "./FilterNotificationTabs";
 import NotificationCard from "./NotificationCard";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import toast from "react-hot-toast";
+import useTheme from "../../../hooks/useTheme";
 
 const Notifications = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
+  const {darkMode} = useTheme();
   
   // State
   const [activeFilter, setActiveFilter] = useState('all');
@@ -61,10 +63,20 @@ const Notifications = () => {
       await axiosSecure.patch(`/notifications/markAsRead/${notificationId}`);
       refetch();
       queryClient.invalidateQueries(['unread-notifications', user?.email]);
-      toast.success('Notification marked as read', { position: 'top-right' });
+      toast.success('Notification marked as read', { position: 'top-right',
+        style: {
+          background: darkMode ? '#1F2937' : 'white',
+          color: darkMode ? '#F9FAFB' : '#111827',
+        },
+       });
     } catch (error) {
       console.error('Error marking notification as read:', error);
-      toast.error('Failed to mark as read', { position: 'top-right' });
+      toast.error('Failed to mark as read', { position: 'top-right',
+        style: {
+          background: darkMode ? '#1F2937' : 'white',
+          color: darkMode ? '#F9FAFB' : '#111827',
+        },
+       });
     }
   };
 
@@ -73,10 +85,20 @@ const Notifications = () => {
     try {
         await axiosSecure.delete(`/notifications/${notificationId}`);
         refetch();
-        toast.success('Notification deleted', { position: 'top-right' });
+        toast.success('Notification deleted', { position: 'top-right',
+          style: {
+          background: darkMode ? '#1F2937' : 'white',
+          color: darkMode ? '#F9FAFB' : '#111827',
+        },
+         });
     } catch (error) {
         console.error('Error deleting notification:', error);
-        toast.error('Failed to delete notification', { position: 'top-right' });
+        toast.error('Failed to delete notification', { position: 'top-right',
+          style: {
+          background: darkMode ? '#1F2937' : 'white',
+          color: darkMode ? '#F9FAFB' : '#111827',
+        },
+         });
     }
   };
 
@@ -87,22 +109,32 @@ const Notifications = () => {
     try {
       await axiosSecure.patch(`/notifications/markAllAsRead/${user.email}`);
       refetch();
-      toast.success(`${counts.unread} notifications marked as read`, { position: 'top-right' });
+      toast.success(`${counts.unread} notifications marked as read`, { position: 'top-right',
+        style: {
+          background: darkMode ? '#1F2937' : 'white',
+          color: darkMode ? '#F9FAFB' : '#111827',
+        },
+       });
     } catch (error) {
       console.error('Error marking all notifications as read:', error);
-      toast.error('Failed to mark all as read', { position: 'top-right' });
+      toast.error('Failed to mark all as read', { position: 'top-right',
+        style: {
+          background: darkMode ? '#1F2937' : 'white',
+          color: darkMode ? '#F9FAFB' : '#111827',
+        },
+       });
     }
   };
 
   if (isLoading) {
     return (
-      <div className="p-4 lg:p-6 bg-gray-50 min-h-screen">
+      <div className="p-4 lg:p-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
         <div className="max-w-4xl mx-auto">
           <div className="animate-pulse space-y-6">
-            <div className="h-8 bg-gray-300 rounded w-1/3"></div>
+            <div className="h-8 bg-gray-300 dark:bg-gray-700 rounded w-1/3"></div>
             <div className="space-y-4">
               {[1, 2, 3, 4].map(i => (
-                <div key={i} className="h-24 bg-gray-300 rounded-lg"></div>
+                <div key={i} className="h-24 bg-gray-300 dark:bg-gray-700 rounded-lg"></div>
               ))}
             </div>
           </div>
@@ -112,25 +144,13 @@ const Notifications = () => {
   }
 
   return (
-    <div className="p-4 lg:p-6 bg-gray-50 min-h-screen">
-      <div className="max-w-4xl mx-auto">
+    <div className="px-4 pb-4 sm:p-4 lg:p-6 xl:px-12 bg-gray-50 dark:bg-gray-900 min-h-screen">
+      <div className="mx-auto">
         
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-          {/* <div>
-            <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 flex items-center">
-              <Bell className="w-8 h-8 mr-3 text-[#FF6B00]" />
-              Notifications
-            </h1>
-            <p className="text-gray-600 mt-1">
-              {counts.unread > 0 
-                ? `You have ${counts.unread} unread notification${counts.unread > 1 ? 's' : ''}`
-                : 'You\'re all caught up!'
-              }
-            </p>
-          </div> */}
           <SectionTitle 
-            subHeading={`Notifications`}
+            subHeading="Notifications"
             heading={`${counts.unread > 0 
                 ? `You have ${counts.unread} unread notification${counts.unread > 1 ? 's' : ''}`
                 : 'You\'re all caught up!'
@@ -138,6 +158,7 @@ const Notifications = () => {
               variant="dashboard"
               alignment="left"
               icon={<Bell className="w-6 h-6 text-[#FF6B00]" />}
+              className="my-0 lg:my-6"
           />
           
           {counts.unread > 0 && (
@@ -154,13 +175,13 @@ const Notifications = () => {
         {/* Search */}
         <div className="mb-6">
           <div className="relative max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-5 h-5" />
             <input
               type="text"
               placeholder="Search notifications..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full outline-none pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF6B00] focus:border-transparent"
+              className="w-full outline-none pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-[#FF6B00] focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
             />
           </div>
         </div>
@@ -174,11 +195,11 @@ const Notifications = () => {
 
         {/* Notifications List */}
         {filteredNotifications.length === 0 ? (
-          <div className="text-center py-12 bg-white rounded-xl shadow-sm">
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Bell className="w-8 h-8 text-gray-400" />
+          <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-md">
+            <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Bell className="w-8 h-8 text-gray-400 dark:text-gray-500" />
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
               {searchTerm 
                 ? 'No notifications found' 
                 : activeFilter === 'all'
@@ -186,7 +207,7 @@ const Notifications = () => {
                   : `No ${activeFilter} notifications`
               }
             </h3>
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-400">
               {searchTerm 
                 ? 'Try adjusting your search terms'
                 : 'When you have notifications, they\'ll appear here'
@@ -207,7 +228,7 @@ const Notifications = () => {
         )}
 
         {/* Stats Footer */}
-        <div className="mt-8 text-center text-sm text-gray-500">
+        <div className="mt-8 text-center text-sm text-gray-500 dark:text-gray-400">
           Showing {filteredNotifications.length} of {allNotifications.length} notifications
         </div>
       </div>
